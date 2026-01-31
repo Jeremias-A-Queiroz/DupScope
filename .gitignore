@@ -1,0 +1,48 @@
+# --- Dados do Projeto (Segurança) ---
+# Ignora todos os arquivos JSON (relatórios do rmlint)
+*.json
+
+# Ignora listas de texto geradas
+*.txt
+# Exceções (arquivos de documentação que devem subir)
+!LICENSE
+!LICENSE.txt
+!README.md
+!requirements.txt
+
+# --- Emacs ---
+*~
+\#*\#
+.\#*
+auto-save-list/
+tramp/
+._*
+
+# --- Vim / Gvim ---
+*.swp
+*.swo
+*.swn
+.netrwhist
+Session.vim
+[._]*.un~
+
+# --- VS Code ---
+.vscode/
+
+# --- JetBrains / IntelliJ ---
+.idea/
+*.iml
+
+# --- Sistema Operacional ---
+# macOS
+.DS_Store
+.DS_Store?
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Linux
+.fuse_hidden*
+.directory
+.Trash-*

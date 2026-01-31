@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoria Solarized</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>DupScope: Auditoria de Armazenamento</h1>
+            <p>Selecione arquivos para remoção. Espaço e estado são calculados em tempo real.</p>
+        </div>
+    </header>
+
+    <!-- Wrapper para manter Abas e Controles fixos no topo -->
+    <div id="sticky-wrapper">
+        <nav id="main-tabs">
+            <button class="tab-button active" data-tab="duplicates">Duplicatas</button>
+            <button class="tab-button" data-tab="emptydirs">Dir. Vazios</button>
+            <button class="tab-button" data-tab="emptyfiles">Arq. Vazios</button>
+        </nav>
+
+        <section id="controls">
+            <div class="control-row">
+                <div class="filter-group">
+                    <label for="sort-by">Ordenar:</label>
+                    <select id="sort-by"></select>
+                </div>
+                <div class="filter-group">
+                    <label for="items-per-page">Por Pág:</label>
+                    <select id="items-per-page">
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                    </select>
+                </div>
+                <div class="pagination-controls">
+                    <button id="prev-page" disabled>&#9664;</button>
+                    <span id="page-info">1 / 1</span>
+                    <button id="next-page" disabled>&#9654;</button>
+                </div>
+            </div>
+
+            <div class="control-row right-actions">
+                <div class="file-upload">
+                    <input type="file" id="load-txt-file" accept=".txt" style="display: none;">
+                    <label for="load-txt-file" class="btn-secondary" title="Carregar estado anterior">Carregar TXT</label>
+                </div>
+                <button id="generate-txt" class="btn-primary">Baixar Lista TXT</button>
+            </div>
+        </section>
+    </div>
+
+    <main>
+        <!-- Conteúdo -->
+        <section id="tab-content">
+            <div id="duplicates-tab" class="tab-pane active">
+                <div class="list-header">Grupos de Duplicatas</div>
+                <div id="duplicate-groups-container">Carregando...</div>
+            </div>
+
+            <div id="emptydirs-tab" class="tab-pane">
+                <div class="list-header">Diretórios Vazios</div>
+                <div id="emptydirs-list-container">Carregando...</div>
+            </div>
+
+            <div id="emptyfiles-tab" class="tab-pane">
+                <div class="list-header">Arquivos Vazios</div>
+                <div id="emptyfiles-list-container">Carregando...</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Barra de Status Fixa (Totalizador) -->
+    <div id="sticky-status-bar">
+        <div class="status-content">
+            <span class="status-label">Itens:</span>
+            <span id="total-items-count">0</span>
+            <span class="separator">|</span>
+            <span class="status-label">Espaço:</span>
+            <span id="total-size-saved">0 B</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

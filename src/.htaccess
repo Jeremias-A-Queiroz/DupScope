@@ -1,0 +1,23 @@
+AuthType Basic
+AuthName "Auditoria de Arquivos"
+AuthUserFile /caminho/para/.htpasswd
+Require valid-user
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Base para as regras
+    RewriteBase /
+
+    # Regra para o user1
+    RewriteCond %{REMOTE_USER} ^user1$
+    RewriteRule ^resultado_duplicates\.json$ data_user1.json [L]
+
+    # Regra para o user2
+    RewriteCond %{REMOTE_USER} ^user2$
+    RewriteRule ^resultado_duplicates\.json$ data_user2.json [L]
+
+    # Regra para o admin (ou padrão)
+    RewriteCond %{REMOTE_USER} ^admin$
+    RewriteRule ^resultado_duplicates\.json$ data_admin.json [L]
+</IfModule>
