@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auditoria Solarized</title>
+    <title>Auditoria Duplicates</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -77,11 +77,25 @@
     <!-- Barra de Status Fixa (Totalizador) -->
     <div id="sticky-status-bar">
         <div class="status-content">
-            <span class="status-label">Itens:</span>
-            <span id="total-items-count">0</span>
-            <span class="separator">|</span>
-            <span class="status-label">Espaço:</span>
-            <span id="total-size-saved">0 B</span>
+            <!-- Totais Globais (Diagnóstico) -->
+            <span class="stat-group" title="Total de redundância identificada pelo sistema">
+                <span class="status-label">Detectado:</span>
+                <span id="global-count">0</span>
+                <span class="status-suffix">arqs</span>
+                <span class="inner-separator">/</span>
+                <span id="global-size">0 B</span>
+            </span>
+
+            <span class="main-separator">|</span>
+
+            <!-- Seleção Atual (Ação do Usuário) -->
+            <span class="stat-group" title="Total que será liberado após a exclusão">
+                <span class="status-label highlight">Seleção:</span>
+                <span id="selected-count">0</span>
+                <span class="status-suffix">arqs</span>
+                <span class="inner-separator">/</span>
+                <span id="selected-size">0 B</span>
+            </span>
         </div>
     </div>
 

@@ -20,8 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
             emptydirs: document.getElementById('emptydirs-list-container'),
             emptyfiles: document.getElementById('emptyfiles-list-container')
         },
-        totalItemsCount: document.getElementById('total-items-count'),
-        totalSizeSaved: document.getElementById('total-size-saved'),
+        // Status Bar Elements
+        globalCount: document.getElementById('global-count'),
+        globalSize: document.getElementById('global-size'),
+        selectedCount: document.getElementById('selected-count'),
+        selectedSize: document.getElementById('selected-size'),
         stickyWrapper: document.getElementById('sticky-wrapper')
     };
 
@@ -37,7 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
         pagination: { duplicates: 1, emptydirs: 1, emptyfiles: 1 },
         itemsPerPage: 25,
         filesToDelete: new Set(),
-        currentTotalBytes: 0
+        currentTotalBytes: 0,
+        // Global Stats (Detected)
+        totalRedundantCount: 0,
+        totalRedundantSize: 0
     };
 
     // --- Init ---
@@ -57,6 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             processData(rawData);
             updateSortOptions();
             renderCurrentTab();
+            updateGlobalStatsUI();
         } catch (error) {
             console.error(error);
             const msg = `<div style="text-align:center; padding:20px; color:var(--red)">
@@ -94,6 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         state.data.duplicates = Array.from(dupMap.values());
+
+        // Calculate Global Redundancy Stats
+        state.data.duplicates.forEach(group => {
+            // Redundancy = Total files in group minus 1 (the one we keep)
+            const redundantCount = group.files.length - 1;
+            if (redundantCount > 0) {
+                state.totalRedundantCount += redundantCount;
+                state.totalRedundantSize += (group.size * redundantCount);
+            }
+        });
     }
 
     // --- Render Logic ---
@@ -216,9 +233,14 @@ document.addEventListener('DOMContentLoaded', () => {
         updateStickyFooter();
     }
 
+    function updateGlobalStatsUI() {
+        dom.globalCount.textContent = state.totalRedundantCount;
+        dom.globalSize.textContent = formatBytes(state.totalRedundantSize);
+    }
+
     function updateStickyFooter() {
-        dom.totalItemsCount.textContent = state.filesToDelete.size;
-        dom.totalSizeSaved.textContent = formatBytes(state.currentTotalBytes);
+        dom.selectedCount.textContent = state.filesToDelete.size;
+        dom.selectedSize.textContent = formatBytes(state.currentTotalBytes);
     }
 
     // --- Logic: Restore State ---
